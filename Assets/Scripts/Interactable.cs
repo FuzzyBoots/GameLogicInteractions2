@@ -5,6 +5,10 @@ public class Interactable : MonoBehaviour
 {
     [SerializeField] GameObject _helpText;
 
+    private void Awake()
+    {
+        _helpText.SetActive(false);
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (_helpText != null && other.TryGetComponent<Player>(out Player _))
