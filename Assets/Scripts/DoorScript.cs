@@ -6,6 +6,8 @@ public class DoorScript : MonoBehaviour
 {
     Animator _animator;
     int _isOpenHash;
+    [SerializeField] bool _isOperable = true;
+    [SerializeField] string _cannotOperateMessage = "Can't do that, boss";
 
     private void Awake()
     {
@@ -14,19 +16,32 @@ public class DoorScript : MonoBehaviour
         _isOpenHash = Animator.StringToHash("IsOpen");
     }
 
-    public void OpenDoor()
+    public void OperateDoor(bool isOpen)
     {
-        _animator.SetBool(_isOpenHash, true);
-    }
-
-    public void CloseDoor()
-    {
-        _animator.SetBool(_isOpenHash, false);
+        if (_isOperable)
+        {
+            _animator.SetBool(_isOpenHash, isOpen);
+        } else
+        {
+            Debug.Log(_cannotOperateMessage);
+        }
     }
 
     public void ToggleDoor()
     {
-        bool isOpen = _animator.GetBool(_isOpenHash);
-        _animator.SetBool(_isOpenHash, !isOpen);
+        if (_isOperable)
+        {
+            bool isOpen = _animator.GetBool(_isOpenHash);
+            _animator.SetBool(_isOpenHash, !isOpen);
+        }
+        else
+        {
+            Debug.Log(_cannotOperateMessage);
+        }
+    }
+
+    public void SetDoorOperable(bool isOperable)
+    {
+        _isOperable = isOperable;
     }
 }

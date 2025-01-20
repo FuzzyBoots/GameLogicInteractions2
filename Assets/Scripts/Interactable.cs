@@ -20,6 +20,11 @@ public class Interactable : MonoBehaviour
 
     private void Awake()
     {
+        if (_helpText == null)
+        {
+            // Try to find it. We'll assume it has UILookAt
+            _helpText = transform.GetComponentInChildren<UILookAt>()?.gameObject;
+        }
         _helpText.SetActive(false);
     }
 
