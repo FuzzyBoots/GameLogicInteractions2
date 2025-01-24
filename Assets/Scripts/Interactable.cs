@@ -8,7 +8,7 @@ public class Interactable : MonoBehaviour
 
     [SerializeField] UnityEvent _onInteract;
 
-    [SerializeField] bool _inZone = false;
+    bool _inZone = false;
 
     [SerializeField] private void Update()
     {
