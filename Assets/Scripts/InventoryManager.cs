@@ -38,4 +38,9 @@ public class InventoryManager : MonoBehaviour
             _inventoryItems.Remove(foundItem);
         }
     }
+
+    public bool HasItem(ItemEnums itemEnum)
+    {
+        return _inventoryItems.Any(item => item.ItemEnum == itemEnum);
+    }
 }

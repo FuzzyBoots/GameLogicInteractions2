@@ -959,7 +959,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3676696188815299706, guid: 4b7e8d8046d3d414bbaf8054eea582ef, type: 3}
       propertyPath: _isOperable
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4082662606574322733, guid: 4b7e8d8046d3d414bbaf8054eea582ef, type: 3}
       propertyPath: controlPanelType
@@ -1028,7 +1028,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8101059038783356897, guid: 4b7e8d8046d3d414bbaf8054eea582ef, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2055379792}
+    - targetCorrespondingSourceObject: {fileID: 8101059038783356897, guid: 4b7e8d8046d3d414bbaf8054eea582ef, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2055379793}
   m_SourcePrefab: {fileID: 100100000, guid: 4b7e8d8046d3d414bbaf8054eea582ef, type: 3}
 --- !u!4 &284373137 stripped
 Transform:
@@ -4693,6 +4699,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 464505050497197183, guid: dc84ee2b07389874c937a60b0273ff2e, type: 3}
   m_PrefabInstance: {fileID: 1962199731}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1985444900 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8101059038783356897, guid: 4b7e8d8046d3d414bbaf8054eea582ef, type: 3}
+  m_PrefabInstance: {fileID: 284373136}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2000154442 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7237592817418154156, guid: 350f17de19828184c9ecde7c8352a425, type: 3}
@@ -5000,12 +5011,62 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3676696188815299706, guid: 4b7e8d8046d3d414bbaf8054eea582ef, type: 3}
   m_PrefabInstance: {fileID: 284373136}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1985444900}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a9e9ee3572e6d8d429d4153f53a9e7f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!135 &2055379792
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1985444900}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1.27
+  m_Center: {x: 0, y: 0.82, z: 0}
+--- !u!114 &2055379793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1985444900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54f1f398eb803094ea2e7a1468fec4f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _triggerCollider: {fileID: 0}
+  _requiredItemEnum: 1
+  _itemAction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2055379790}
+        m_TargetAssemblyTypeName: DoorScript, Assembly-CSharp
+        m_MethodName: SetDoorOperable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &2062848492
 GameObject:
   m_ObjectHideFlags: 0

@@ -118,6 +118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _itemName: Keycard A
+  _itemEnum: 1
 --- !u!135 &5749429253314349058
 SphereCollider:
   m_ObjectHideFlags: 0
