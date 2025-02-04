@@ -1,9 +1,12 @@
 using NUnit.Framework;
+using StarterAssets;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class Interactable : MonoBehaviour
 {
+    StarterAssetsInputs _starterAssetsInputs;
+
     [SerializeField] GameObject _helpText;
 
     [SerializeField] UnityEvent _onInteract;
@@ -12,7 +15,7 @@ public class Interactable : MonoBehaviour
 
     [SerializeField] private void Update()
     {
-        if (_inZone && Input.GetKeyDown(KeyCode.E))
+        if (_inZone && _starterAssetsInputs.interact)
         {
             _onInteract?.Invoke();
         }
@@ -20,6 +23,8 @@ public class Interactable : MonoBehaviour
 
     private void Awake()
     {
+        _starterAssetsInputs = GameObject.FindWithTag("Player").GetComponent<StarterAssetsInputs>();
+
         if (_helpText == null)
         {
             // Try to find it. We'll assume it has UILookAt
