@@ -8,7 +8,6 @@ using UnityEngine;
 
 public class ElevatorScript : MonoBehaviour
 {
-    [SerializeField] bool _isOperable = false;
     [SerializeField] Transform[] _destinations;
     [SerializeField] int _position = 0;
     [SerializeField] bool _goingUp = true;
@@ -18,6 +17,7 @@ public class ElevatorScript : MonoBehaviour
 
     [SerializeField] CinemachineVirtualCamera _elevatorCam;
 
+    [SerializeField] bool _isOperable = false;
     public void SetOperable(bool isOperable)
     {
         _isOperable = isOperable;
