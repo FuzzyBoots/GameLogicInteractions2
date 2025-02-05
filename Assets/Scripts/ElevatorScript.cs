@@ -1,10 +1,13 @@
 ﻿using Cinemachine;
 using DG.Tweening;
+using StarterAssets;
 using System;
 using System.Collections;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using UnityEditor.PackageManager;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ElevatorScript : MonoBehaviour
 {
@@ -18,6 +21,16 @@ public class ElevatorScript : MonoBehaviour
     [SerializeField] CinemachineVirtualCamera _elevatorCam;
 
     [SerializeField] bool _isOperable = false;
+
+    [SerializeField] PlayerInput _playerInput;
+    [SerializeField] Canvas _elevatorUI;
+
+    private void Awake()
+    {
+        _elevatorUI.enabled = false;
+        _playerInput = GameObject.FindWithTag("Player").GetComponent<PlayerInput>();
+    }
+
     public void SetOperable(bool isOperable)
     {
         _isOperable = isOperable;
@@ -50,12 +63,40 @@ public class ElevatorScript : MonoBehaviour
         transform.DOMove(_destinations[_position].position, _transitTime).OnComplete(() => { _inTransit = false; _elevatorCam.Priority = 10; });
     }
 
+    public void OpenElevatorUI()
+    {
+        if (!_isOperable) return;
+        if (_inTransit) return;
+
+        _elevatorUI.enabled = true;
+        _playerInput.SwitchCurrentActionMap("UI");
+    }
+
+    public void SendToFloor(int floor)
+    {
+        if (!_isOperable) return;
+        if (_inTransit) return;
+
+        if (floor < 0 || floor >=  _destinations.Length) {
+            Debug.LogError($"Attempted to send {gameObject.name} to invalid floor {floor}", this);
+        }
+
+        _inTransit = true;
+        _elevatorCam.Priority = 50;
+        _elevatorUI.enabled = false;
+        _playerInput.SwitchCurrentActionMap("Player");
+
+        _transitTime = Vector3.Distance(this.transform.position, _destinations[floor].position) / _elevatorSpeed;
+        transform.DOMove(_destinations[floor].position, _transitTime).OnComplete(() => { 
+            _inTransit = false; 
+            _elevatorCam.Priority = 10;
+        });
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("On elevator");
         if (other.gameObject.TryGetComponent<Player>(out _))
         {
-            Debug.Log("Parented to platform");
             other.gameObject.transform.parent = this.transform;
         }
     }
