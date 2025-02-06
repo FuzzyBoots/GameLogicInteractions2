@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
@@ -13,8 +14,9 @@ namespace StarterAssets
 		public bool jump;
 		public bool sprint;
 		public bool interact;
+        public bool cancel;
 
-		[Header("Movement Settings")]
+        [Header("Movement Settings")]
 		public bool analogMovement;
 
 		[Header("Mouse Cursor Settings")]
@@ -22,12 +24,17 @@ namespace StarterAssets
 		public bool cursorInputForLook = true;
 
 #if ENABLE_INPUT_SYSTEM
-		public void OnMove(InputValue value)
+        public void OnMove(InputValue value)
 		{
 			MoveInput(value.Get<Vector2>());
 		}
 
-		public void OnLook(InputValue value)
+		public void OnCancel(InputValue value)
+		{
+			CancelInput(value.isPressed);
+		}
+
+        public void OnLook(InputValue value)
 		{
 			if(cursorInputForLook)
 			{
@@ -76,6 +83,11 @@ namespace StarterAssets
         public void InteractInput(bool newInteractState)
         {
             interact = newInteractState;
+        }
+
+        private void CancelInput(bool isPressed)
+        {
+            cancel = isPressed;
         }
 
         private void OnApplicationFocus(bool hasFocus)

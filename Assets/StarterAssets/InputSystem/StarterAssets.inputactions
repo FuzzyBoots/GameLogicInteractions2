@@ -441,22 +441,22 @@
                 },
                 {
                     "name": "",
-                    "id": "7d8b0e85-cc87-4e63-8c88-85e986ad7e4c",
-                    "path": "<Keyboard>/r",
+                    "id": "62117bde-fece-4d85-a42f-c3a5c8f35481",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";KeyboardMouse",
+                    "groups": ";Gamepad",
                     "action": "Submit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "62117bde-fece-4d85-a42f-c3a5c8f35481",
-                    "path": "<Gamepad>/buttonSouth",
+                    "id": "64c9f25f-47a0-4e1f-8919-524be0323136",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Gamepad",
+                    "groups": "",
                     "action": "Submit",
                     "isComposite": false,
                     "isPartOfComposite": false

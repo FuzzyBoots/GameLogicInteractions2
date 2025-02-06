@@ -7,9 +7,11 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using UnityEditor.PackageManager;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
-public class ElevatorScript : MonoBehaviour
+public class ElevatorScript : MonoBehaviour, ICancelHandler
 {
     [SerializeField] Transform[] _destinations;
     [SerializeField] int _position = 0;
@@ -22,17 +24,30 @@ public class ElevatorScript : MonoBehaviour
 
     [SerializeField] bool _isOperable = false;
 
+    InputAction _cancel;
+
     [SerializeField] PlayerInput _playerInput;
     [SerializeField] Canvas _elevatorUI;
+
+    private void Update()
+    {
+        if (_cancel.IsPressed())
+        {
+            CancelUI();
+        }
+    }
 
     private void Awake()
     {
         _elevatorUI.enabled = false;
         _playerInput = GameObject.FindWithTag("Player").GetComponent<PlayerInput>();
+
+        _cancel = InputSystem.actions.FindAction("Cancel");
     }
 
     public void SetOperable(bool isOperable)
     {
+        Debug.Log("Operable");
         _isOperable = isOperable;
     }
 
@@ -65,15 +80,33 @@ public class ElevatorScript : MonoBehaviour
 
     public void OpenElevatorUI()
     {
+        Debug.Log($"Operable: {_isOperable} In Transit: {_inTransit}", this);
         if (!_isOperable) return;
+        Debug.Log("Past Operable");
         if (_inTransit) return;
+        Debug.Log("Past Transit");
+        Debug.Log("OpenElevatorUI");
+        StartCoroutine(SwitchToUIAfterAFrame());
+    }
 
+    public IEnumerator SwitchToUIAfterAFrame()
+    {
+        Debug.Log("Before wait");
+        yield return new WaitForSeconds(0.1f);
+        Debug.Log("After wait");
         _elevatorUI.enabled = true;
         _playerInput.SwitchCurrentActionMap("UI");
     }
 
+    public void CancelUI()
+    {
+        _elevatorUI.enabled = false;
+        _playerInput.SwitchCurrentActionMap("Player");
+    }
+
     public void SendToFloor(int floor)
     {
+        Debug.Log($"Send to Floor {floor}", this);
         if (!_isOperable) return;
         if (_inTransit) return;
 
@@ -83,8 +116,8 @@ public class ElevatorScript : MonoBehaviour
 
         _inTransit = true;
         _elevatorCam.Priority = 50;
-        _elevatorUI.enabled = false;
-        _playerInput.SwitchCurrentActionMap("Player");
+        
+        CancelUI();
 
         _transitTime = Vector3.Distance(this.transform.position, _destinations[floor].position) / _elevatorSpeed;
         transform.DOMove(_destinations[floor].position, _transitTime).OnComplete(() => { 
@@ -107,5 +140,10 @@ public class ElevatorScript : MonoBehaviour
         {
             other.gameObject.transform.parent = null;
         }
+    }
+
+    public void OnCancel(BaseEventData eventData)
+    {
+        Debug.Log("Cancel?");
     }
 }

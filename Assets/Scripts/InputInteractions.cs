@@ -9,12 +9,13 @@ public class InputInteractions : MonoBehaviour
     private void Awake()
     {
         _starterAssetsInputs = GetComponent<StarterAssetsInputs>();
-
-        Assert.IsNotNull( _starterAssetsInputs, "No Start Assets Inputs found on player!");
+        
+        Assert.IsNotNull( _starterAssetsInputs, "No Starter Assets Inputs found on player!");
     }
 
     private void LateUpdate()
     {
         _starterAssetsInputs.interact = false;
+        _starterAssetsInputs.cancel = false;
     }
 }

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,6 +24,8 @@ public class PowerCore : MonoBehaviour
     Animator _playerAnimator;
 
     [SerializeField] GameObject _emissionObject;
+
+    [SerializeField] float _chargeTime = 5f;
 
     public int PowerLevel { get { return _charge; } internal set { _charge = value; } }
 
@@ -116,11 +119,9 @@ public class PowerCore : MonoBehaviour
             coreColor = Color.magenta;
         }
 
-        Debug.Log("Setting color to " + coreColor.ToString());
-
         foreach (Material mat in _emissionMaterials)
         {
-            mat.SetColor("_EmissionColor", coreColor);
+            mat.DOColor(coreColor, "_EmissionColor", _chargeTime);
         }
     }
 }
